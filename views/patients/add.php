@@ -38,7 +38,8 @@ $content = <<<HTML
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Contact Number</label>
-                    <input type="text" name="contact" class="form-control" required>
+                   <input type="text" name="contact" class="form-control" pattern="[0-9]{10}" maxlength="10"oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Enter a valid 10-digit mobile number"required>
+
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Imaging / X-ray (Upload File)</label>
@@ -53,7 +54,7 @@ $content = <<<HTML
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Aadhaar Number</label>
-                    <input type="text" name="aadhaar" class="form-control">
+                    <input type="text" name="aadhaar" class="form-control"pattern="[0-9]{12}" maxlength="12" oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Enter a valid 12-digit Aadhaar number">
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">Fees</label>
