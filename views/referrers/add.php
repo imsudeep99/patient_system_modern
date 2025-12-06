@@ -25,8 +25,9 @@ $content = <<<HTML
                     <input type="text" name="name" class="form-control" required>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Phone</label>
-                    <input type="text" name="phone" class="form-control">
+                    <label class="form-label">Contact Number</label>
+                   <input type="text" name="contact" class="form-control" pattern="[0-9]{10}" maxlength="10"oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Enter a valid 10-digit mobile number"required>
+
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Hospital / Clinic</label>
