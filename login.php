@@ -53,6 +53,7 @@ unset($_SESSION['error']);
                         </div>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <small class="text-muted">Demo admin: admin@example.com / admin123</small>
+                             <small class="text-muted">Demo employee: emp@example.com / emp123</small>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Login</button>
                     </form>
