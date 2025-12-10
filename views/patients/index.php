@@ -5,6 +5,18 @@
 }
 
 </style>
+
+<!-- <?php if (isset($_GET['deleted'])): ?>
+    <div class="alert alert-success">
+        Patient deleted successfully.
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.querySelector('.alert').style.display = 'none';
+        }, 2000);
+    </script>
+<?php endif; ?> -->
 <?php
 require_once __DIR__ . '/../../config.php';
 require_once __DIR__ . '/../../helpers.php';
@@ -64,6 +76,7 @@ $patients = $stmt->fetchAll();
  */
 $rows = '';
 foreach ($patients as $p) {
+
     $ref = $p['referrer_name']
         ? $p['referrer_name'].' ('.strtoupper($p['referrer_type']).')'
         : '-';
@@ -75,9 +88,23 @@ foreach ($patients as $p) {
         <td>'.htmlspecialchars($p['contact']).'</td>
         <td>'.htmlspecialchars($ref).'</td>
         <td>'.htmlspecialchars($p['fees']).'</td>
-        <td>'.htmlspecialchars(date("d-m-Y", strtotime($p['created_at']))).'</td>
+        <td>'.htmlspecialchars(date("d-m-Y", strtotime($p["created_at"]))).'</td>
+        <td>
+            <a href="/patient_system_modern/views/patients/view_patient.php?id='.$p['id'].'" 
+               class="btn btn-sm btn-primary">View</a>
+
+            <a href="/patient_system_modern/views/patients//edit_patient.php?id='.$p['id'].'" 
+               class="btn btn-sm btn-warning">Edit</a>
+
+            <a href="/patient_system_modern/views/patients//delete_patient.php?id='.$p['id'].'" 
+               class="btn btn-sm btn-danger"
+               onclick="return confirm(\'Are you sure?\');">
+               Delete
+            </a>
+        </td>
     </tr>';
 }
+
 
 /*
    BUILD FILTER VALUES & OPTIONS
@@ -170,6 +197,7 @@ $content = <<<HTML
                         <th>Referred By</th>
                         <th>Fees</th>
                         <th>Date</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>

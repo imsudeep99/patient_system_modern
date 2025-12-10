@@ -1,3 +1,4 @@
+//password show
 document.addEventListener('DOMContentLoaded', function () {
     const passwordInput = document.getElementById('password');
     const togglePassword = document.getElementById('togglePassword');

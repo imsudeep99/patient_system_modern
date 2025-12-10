@@ -1,3 +1,4 @@
+
 <?php
 require_once __DIR__ . '/config.php';
 
@@ -17,6 +18,8 @@ unset($_SESSION['error']);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="assets/js/main.js"></script>
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-gradient">
@@ -51,9 +54,22 @@ unset($_SESSION['error']);
                                 <input type="password" name="password" class="form-control" required placeholder="••••••••">
                             </div>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <small class="text-muted">Demo admin: admin@example.com / admin123</small>
-                             <small class="text-muted">Demo employee: emp@example.com / emp123</small>
+                        <!-- <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="••••••••" required>
+
+                                <span class="input-group-text" id="togglePassword" style="cursor:pointer;">
+                                    <i class="fa-solid fa-eye" id="toggleIcon"></i>
+                                </span>
+                            </div>
+                        </div> -->
+                        <!-- <div class="d-flex justify-content-between align-items-center mb-3"> -->
+                        <div class="mb-3">
+                            <small class="text-muted">Demo admin: admin@example.com / admin123</small><br>
+                             <small class="text-muted">Demo employee: emp@example.com / emp123</small><br>
+                             <small class="text-muted">Demo employee: sudeep@gmail.com / sudeep123</small>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Login</button>
                     </form>
