@@ -23,12 +23,12 @@ $content = <<<HTML
                     <label class="form-label">Email</label>
                     <input type="email" name="email" class="form-control" required>
                 </div>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <label class="form-label">Password</label>
                     <input type="password" name="password" class="form-control" required>
-                </div>
+                </div> -->
                 <!-- show password -->
-               <!-- <div class="col-md-6">
+               <div class="col-md-6">
                     <label class="form-label">Password</label>
                     <div class="input-group">
                         <input type="password" name="password" id="password" class="form-control" required>
@@ -37,7 +37,7 @@ $content = <<<HTML
                             <i class="fa-solid fa-eye" id="toggleIcon"></i>
                         </span>
                     </div>
-                </div> -->
+                </div>
 
 
                 <div class="col-md-6">

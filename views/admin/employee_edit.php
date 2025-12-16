@@ -49,22 +49,22 @@ $content = <<<HTML
                     <input type="email" name="email" class="form-control" value="{$email}" required>
                 </div>
 
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <label class="form-label">Password</label>
                     <input type="password" name="password" class="form-control" value="{$password}" required>
-                </div>
+                </div> -->
 
                 <!-- show password -->
-               <!-- <div class="col-md-6">
+               <div class="col-md-6">
                     <label class="form-label">Password</label>
                     <div class="input-group">
-                        <input type="password" name="password" id="password" class="form-control"  value="{$password}" required>
+                        <input type="password" name="password" id="password" class="form-control"  required>
 
                         <span class="input-group-text" id="togglePassword" style="cursor:pointer;">
                             <i class="fa-solid fa-eye" id="toggleIcon"></i>
                         </span>
                     </div>
-                </div> -->
+                </div>
                 
 
                 <div class="col-md-6">

@@ -1,9 +1,10 @@
 <style>
-    .btn-primary:hover {
-    background-color: #013063ff !important; /* your hover bg color */
-    border-color: #004a99 !important;     /* optional border color */
+.btn-primary:hover {
+    background-color: #013063ff !important;
+    /* your hover bg color */
+    border-color: #004a99 !important;
+    /* optional border color */
 }
-
 </style>
 
 <!-- <?php if (isset($_GET['deleted'])): ?>
@@ -178,9 +179,14 @@ $content = <<<HTML
             </select>
         </div>
 
-        <div class="col-md-2">
+        <!-- <div class="col-md-2">
             <button class="btn btn-primary w-100">Filter</button>
-        </div>
+            <a href="index.php" class="btn btn-outline-secondary"><i class="fas fa-redo me-1"></i> Reset</a>
+        </div> -->
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary me-2"><i class="fas fa-search me-1"></i> Filter</button>
+                <a href="/patient_system_modern/views/patients/index.php" class="btn btn-outline-secondary"><i class="fas fa-redo me-1"></i> Reset</a>
+            </div>
     </div>
 </form>
 
