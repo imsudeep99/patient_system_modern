@@ -12,11 +12,25 @@ $referrers = $pdo->query('SELECT * FROM referrers ORDER BY type, name')->fetchAl
 $rows = '';
 foreach ($referrers as $r) {
     $rows .= '<tr>
+        <td>'.htmlspecialchars($r['id']).'</td>
         <td>'.htmlspecialchars($r['name']).'</td>
         <td>'.htmlspecialchars(strtoupper($r['type'])).'</td>
         <td>'.htmlspecialchars($r['phone']).'</td>
         <td>'.htmlspecialchars($r['hospital_clinic']).'</td>
         <td>'.htmlspecialchars($r['address']).'</td>
+        <td>
+            <a href="/patient_system_modern/views/referrers/view_doctors.php?id='.$r['id'].'" 
+               class="btn btn-sm btn-primary">View</a>
+
+            <a href="/patient_system_modern/views/referrers/edit_doctors.php?id='.$r['id'].'" 
+               class="btn btn-sm btn-warning">Edit</a>
+
+            <a href="/patient_system_modern/views/referrers/delete_doctors.php?id='.$r['id'].'" 
+               class="btn btn-sm btn-danger"
+               onclick="return confirm(\'Are you sure?\');">
+               Delete
+            </a>
+        </td>
     </tr>';
 }
 
@@ -33,11 +47,13 @@ $content = <<<HTML
             <table class="table table-sm align-middle">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Type</th>
                         <th>Phone</th>
                         <th>Hospital / Clinic</th>
                         <th>Address</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
