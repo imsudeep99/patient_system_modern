@@ -48,7 +48,9 @@ $content = <<<HTML
                 <button class="btn btn-primary mt-3" type="submit">
                     <i class="bi bi-funnel"></i> Apply Filters
                 </button>
+                <a href="/patient_system_modern/views/admin/reports.php" class="btn btn-primary mt-3"><i class="fas fa-redo me-1"></i> Reset</a>
             </div>
+
             <div class="col-md-3 text-md-end">
                 <p class="mb-0 mt-3"><strong>Total Patients:</strong> {$totalPatients}</p>
             </div>
