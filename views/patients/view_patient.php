@@ -29,6 +29,25 @@ if (!$patient) {
     die("Patient not found");
 }
 
+//  PERMISSION LOGIC
+$user = $_SESSION['user'];
+
+$canEdit = false;
+$canDelete = false;
+
+if (strtolower($user['role']) === 'admin') {
+    $canEdit = true;
+    $canDelete = true;
+} else {
+    $createdTime = strtotime($patient['created_at']);
+    $diffHours = (time() - $createdTime) / 3600;
+
+    if ($diffHours <= 48) {
+        $canEdit = true;
+        $canDelete = true;
+    }
+}
+
 // Start collecting page content
 ob_start();
 ?>
@@ -37,14 +56,6 @@ ob_start();
 .patient-wrapper {
     max-width: 1000px;
     margin: 20px auto;
-}
-
-.page-title {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 25px;
-    color: #e5e9ef;
-    background: #0a39e3;
 }
 
 .section-header {
@@ -91,22 +102,28 @@ ob_start();
     font-size: 14px;
 }
 
-.btn-back { background:#6c757d; color:white !important; }
-.btn-edit { background:#f0ad4e; color:white !important; }
-.btn-delete { background:#dc3545; color:white !important; }
+.btn-back {
+    background: #6c757d;
+    color: white !important;
+}
+
+.btn-edit {
+    background: #f0ad4e;
+    color: white !important;
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: white !important;
+}
 </style>
 
 <div class="patient-wrapper">
-
-    <!-- <div class="page-title">
-        Patient Profile
-    </div> -->
 
     <!-- BASIC INFO -->
     <div class="section-header">Basic Information</div>
 
     <div class="row mt-2">
-
         <div class="col-md-4">
             <div class="info-item">
                 <div class="info-label">Name</div>
@@ -141,14 +158,12 @@ ob_start();
                 <div class="info-value"><?= htmlspecialchars($patient['aadhaar']) ?></div>
             </div>
         </div>
-
     </div>
 
     <!-- ADDITIONAL DETAILS -->
     <div class="section-header">Additional Details</div>
 
     <div class="row mt-2">
-
         <div class="col-md-4">
             <div class="info-item">
                 <div class="info-label">Referred By</div>
@@ -173,7 +188,6 @@ ob_start();
                 <div class="info-value"><?= date("d M Y, h:i A", strtotime($patient['created_at'])) ?></div>
             </div>
         </div>
-
     </div>
 
     <!-- NOTES -->
@@ -184,11 +198,10 @@ ob_start();
 
     <!-- IMAGING -->
     <?php if (!empty($patient['imaging_file'])): ?>
-        <div class="section-header">Imaging / X-Ray File</div>
+    <div class="section-header">Imaging / X-Ray File</div>
 
-        <a href="/patient_system_modern/uploads/<?= htmlspecialchars($patient['imaging_file']) ?>"
-           class="btn btn-primary btn-modern mt-2"
-           target="_blank">View File</a>
+    <a href="/patient_system_modern/uploads/<?= htmlspecialchars($patient['imaging_file']) ?>"
+        class="btn btn-primary btn-modern mt-2" target="_blank">View File</a>
     <?php endif; ?>
 
     <hr class="my-4">
@@ -199,13 +212,24 @@ ob_start();
         <a href="index.php" class="btn-modern btn-back">← Back</a>
 
         <div>
+            <?php if ($canEdit): ?>
             <a href="edit_patient.php?id=<?= $patient['id'] ?>" class="btn-modern btn-edit">Edit</a>
+            <?php else: ?>
+            <button class="btn-modern btn-edit" disabled title="Only allowed within 48 hours">
+                Edit
+            </button>
+            <?php endif; ?>
 
-            <a href="delete_patient.php?id=<?= $patient['id'] ?>"
-               class="btn-modern btn-delete"
-               onclick="return confirm('Are you sure you want to delete this patient?');">
-               Delete
+            <?php if ($canDelete): ?>
+            <a href="delete_patient.php?id=<?= $patient['id'] ?>" class="btn-modern btn-delete"
+                onclick="return confirm('Are you sure you want to delete this patient?');">
+                Delete
             </a>
+            <?php else: ?>
+            <button class="btn-modern btn-delete" disabled title="Only allowed within 48 hours">
+                Delete
+            </button>
+            <?php endif; ?>
         </div>
 
     </div>
@@ -213,9 +237,6 @@ ob_start();
 </div>
 
 <?php
-// End page content
 $content = ob_get_clean();
-
-// Load main layout
 include __DIR__ . '/../layout/main.php';
 ?>

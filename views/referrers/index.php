@@ -7,10 +7,47 @@ require_login();
 $page_title = 'Doctors / ASHA';
 $active = 'referrers';
 
+// Logged-in user
+$user = $_SESSION['user'];
+
+// Fetch referrers
 $referrers = $pdo->query('SELECT * FROM referrers ORDER BY type, name')->fetchAll();
 
 $rows = '';
+
 foreach ($referrers as $r) {
+
+    //  Permission Logic
+    $canEdit = false;
+    $canDelete = false;
+
+    if (strtolower($user['role']) === 'admin') {
+        $canEdit = true;
+        $canDelete = true;
+    } else {
+        // Check 48 hours
+        $createdTime = strtotime($r['created_at']);
+        $diffHours = (time() - $createdTime) / 3600;
+
+        if ($diffHours <= 48) {
+            $canEdit = true;
+            $canDelete = true;
+        }
+    }
+
+    //  Edit Button
+    $editBtn = $canEdit
+        ? '<a href="/patient_system_modern/views/referrers/edit_doctors.php?id='.$r['id'].'" 
+            class="btn btn-sm btn-warning">Edit</a>'
+        : '<button class="btn btn-sm btn-secondary" disabled title="Only allowed within 48 hours">Edit</button>';
+
+    //  Delete Button
+    $deleteBtn = $canDelete
+        ? '<a href="/patient_system_modern/views/referrers/delete_doctors.php?id='.$r['id'].'" 
+            class="btn btn-sm btn-danger"
+            onclick="return confirm(\'Are you sure?\');">Delete</a>'
+        : '<button class="btn btn-sm btn-secondary" disabled title="Only allowed within 48 hours">Delete</button>';
+
     $rows .= '<tr>
         <td>'.htmlspecialchars($r['id']).'</td>
         <td>'.htmlspecialchars($r['name']).'</td>
@@ -22,14 +59,8 @@ foreach ($referrers as $r) {
             <a href="/patient_system_modern/views/referrers/view_doctors.php?id='.$r['id'].'" 
                class="btn btn-sm btn-primary">View</a>
 
-            <a href="/patient_system_modern/views/referrers/edit_doctors.php?id='.$r['id'].'" 
-               class="btn btn-sm btn-warning">Edit</a>
-
-            <a href="/patient_system_modern/views/referrers/delete_doctors.php?id='.$r['id'].'" 
-               class="btn btn-sm btn-danger"
-               onclick="return confirm(\'Are you sure?\');">
-               Delete
-            </a>
+            '.$editBtn.'
+            '.$deleteBtn.'
         </td>
     </tr>';
 }
@@ -41,6 +72,7 @@ $content = <<<HTML
         <i class="bi bi-plus"></i> Add
     </a>
 </div>
+
 <div class="card shadow-sm">
     <div class="card-body">
         <div class="table-responsive">
