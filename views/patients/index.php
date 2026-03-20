@@ -62,6 +62,7 @@ $patients = $stmt->fetchAll();
    TABLE ROWS WITH PERMISSION
 */
 $rows = '';
+$i = 1;
 
 foreach ($patients as $p) {
 
@@ -100,6 +101,7 @@ foreach ($patients as $p) {
         : '<button class="btn btn-sm btn-secondary" disabled title="Only allowed within 48 hours">Delete</button>';
 
     $rows .= '<tr>
+        <td>'.$i++.'</td>
         <td>'.htmlspecialchars($p['name']).'</td>
         <td>'.htmlspecialchars($p['age']).'</td>
         <td>'.htmlspecialchars($p['gender']).'</td>
@@ -186,6 +188,7 @@ $content = <<<HTML
             <table class="table table-sm align-middle">
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>Name</th>
                         <th>Age</th>
                         <th>Gender</th>
